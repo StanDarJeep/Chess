@@ -39,6 +39,8 @@ public enum Alliance {
     };
 
     public abstract int getDirection();
+
     public abstract boolean isWhite();
+
     public abstract boolean isBlack();
 }
