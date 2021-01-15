@@ -48,7 +48,7 @@ public class Rook extends Piece {
                         final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                         final Alliance pieceAlliance = pieceAtDestination.pieceAlliance;
                         if (this.pieceAlliance != pieceAlliance) {
-                            legalMoves.add(new AttackMove(board, this,
+                            legalMoves.add(new MajorAttackMove(board, this,
                                 candidateDestinationCoordinate, pieceAtDestination));
                         }
                         break;
@@ -65,7 +65,9 @@ public class Rook extends Piece {
     }
 
     @Override
-    public String toString() { return PieceType.ROOK.toString(); }
+    public String toString() {
+        return PieceType.ROOK.toString();
+    }
 
     private static boolean isFirstColumnExclusion(final int currentPosition,
                                                   final int candidateOffset) {

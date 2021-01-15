@@ -29,9 +29,13 @@ public abstract class Player {
             opponentMoves).isEmpty();
     }
 
-    public King getPlayerKing() { return this.playerKing; }
+    public King getPlayerKing() {
+        return this.playerKing;
+    }
 
-    public Collection<Move> getLegalMoves() { return this.legalMoves; }
+    public Collection<Move> getLegalMoves() {
+        return this.legalMoves;
+    }
 
     protected static Collection<Move> calculateAttacksOnTile(int piecePosition, Collection<Move>
         moves) {
@@ -53,13 +57,21 @@ public abstract class Player {
         throw new RuntimeException("Should not reach here! Not a valid board");
     }
 
-    public boolean isMoveLegal(final Move move) { return this.legalMoves.contains(move); }
+    public boolean isMoveLegal(final Move move) {
+        return this.legalMoves.contains(move);
+    }
 
-    public boolean isInCheck() { return this.isInCheck; }
+    public boolean isInCheck() {
+        return this.isInCheck;
+    }
 
-    public boolean isInCheckMate() { return this.isInCheck && !hasEscapeMoves(); }
+    public boolean isInCheckMate() {
+        return this.isInCheck && !hasEscapeMoves();
+    }
 
-    public boolean isInStaleMate() { return !this.isInCheck && !hasEscapeMoves(); }
+    public boolean isInStaleMate() {
+        return !this.isInCheck && !hasEscapeMoves();
+    }
 
     protected boolean hasEscapeMoves() {
         for (final Move move : this.legalMoves) {
@@ -71,7 +83,9 @@ public abstract class Player {
         return false;
     }
 
-    public boolean isCastled() { return false; }
+    public boolean isCastled() {
+        return false;
+    }
 
     public MoveTransition makeMove(final Move move) {
         if (!isMoveLegal(move)) {

@@ -33,7 +33,9 @@ public abstract class Tile {
 
     public abstract Piece getPiece();
 
-    public int getTileCoordinate() { return this.tileCoordinate; }
+    public int getTileCoordinate() {
+        return this.tileCoordinate;
+    }
 
     public static final class EmptyTile extends Tile {
 
@@ -42,7 +44,9 @@ public abstract class Tile {
         }
 
         @Override
-        public String toString() { return "-"; }
+        public String toString() {
+            return "-";
+        }
 
         @Override
         public boolean isTileOccupied() {

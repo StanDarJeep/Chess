@@ -87,7 +87,9 @@ public class GameHistoryPanel extends JPanel {
         }
 
         @Override
-        public int getColumnCount() { return NAMES.length; }
+        public int getColumnCount() {
+            return NAMES.length;
+        }
 
         @Override
         public Object getValueAt(final int row, final int column) {
@@ -119,10 +121,14 @@ public class GameHistoryPanel extends JPanel {
         }
 
         @Override
-        public Class<?> getColumnClass(final int column) { return Move.class; }
+        public Class<?> getColumnClass(final int column) {
+            return Move.class;
+        }
 
         @Override
-        public String getColumnName(final int column) { return NAMES[column]; }
+        public String getColumnName(final int column) {
+            return NAMES[column];
+        }
     }
 
     private static class Row {
@@ -130,14 +136,24 @@ public class GameHistoryPanel extends JPanel {
         private String whiteMove;
         private String blackMove;
 
-        Row() {}
+        Row() {
 
-        public String getWhiteMove() { return this.whiteMove; }
+        }
 
-        public String getBlackMove() { return this.blackMove; }
+        public String getWhiteMove() {
+            return this.whiteMove;
+        }
 
-        public void setWhiteMove(final String move) { this.whiteMove = move; }
+        public String getBlackMove() {
+            return this.blackMove;
+        }
 
-        public void setBlackMove(final String move) { this.blackMove = move; }
+        public void setWhiteMove(final String move) {
+            this.whiteMove = move;
+        }
+
+        public void setBlackMove(final String move) {
+            this.blackMove = move;
+        }
     }
 }

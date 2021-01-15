@@ -22,13 +22,19 @@ public class WhitePlayer extends Player {
     }
 
     @Override
-    public Collection<Piece> getActivePieces() { return this.board.getWhitePieces(); }
+    public Collection<Piece> getActivePieces() {
+        return this.board.getWhitePieces();
+    }
 
     @Override
-    public Alliance getAlliance() { return Alliance.WHITE; }
+    public Alliance getAlliance() {
+        return Alliance.WHITE;
+    }
 
     @Override
-    public Player getOpponent() { return this.board.blackPlayer(); }
+    public Player getOpponent() {
+        return this.board.blackPlayer();
+    }
 
     @Override
     protected Collection<Move> calculateKingCastles(final Collection<Move> playerLegals,

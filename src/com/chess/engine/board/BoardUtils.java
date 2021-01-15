@@ -30,7 +30,9 @@ public class BoardUtils {
     public static final int NUM_TILES = 64;
     public static final int NUM_TILES_PER_ROW = 8;
 
-    private BoardUtils() { throw new RuntimeException("You cannot instantiate me!"); }
+    private BoardUtils() {
+        throw new RuntimeException("You cannot instantiate me!");
+    }
 
     private static String[] initializeAlgebraicNotation() {
         return new String[] {

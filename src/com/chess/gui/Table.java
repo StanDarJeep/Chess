@@ -141,7 +141,9 @@ public class Table {
             }
 
             @Override
-            BoardDirection opposite() { return FLIPPED; }
+            BoardDirection opposite() {
+                return FLIPPED;
+            }
         },
         FLIPPED {
 
@@ -151,7 +153,9 @@ public class Table {
             }
 
             @Override
-            BoardDirection opposite() { return NORMAL; }
+            BoardDirection opposite() {
+                return NORMAL;
+            }
         };
 
         abstract List<TilePanel> traverse(final List<TilePanel> boardTiles);
@@ -194,17 +198,29 @@ public class Table {
             this.moves = new ArrayList<>();
         }
 
-        public List<Move> getMoves() { return this.moves; }
+        public List<Move> getMoves() {
+            return this.moves;
+        }
 
-        public void addMove(final Move move) { this.moves.add(move); }
+        public void addMove(final Move move) {
+            this.moves.add(move);
+        }
 
-        public int size() { return this.moves.size(); }
+        public int size() {
+            return this.moves.size();
+        }
 
-        public void clear() { this.moves.clear(); }
+        public void clear() {
+            this.moves.clear();
+        }
 
-        public Move removeMove(int index) { return this.moves.remove(index); }
+        public Move removeMove(int index) {
+            return this.moves.remove(index);
+        }
 
-        public boolean removeMove(final Move move) { return this.moves.remove(move); }
+        public boolean removeMove(final Move move) {
+            return this.moves.remove(move);
+        }
     }
 
     private class TilePanel extends JPanel {

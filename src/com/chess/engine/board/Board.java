@@ -25,6 +25,7 @@ public class Board {
     private final List<Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
+    private final Pawn enPassantPawn;
 
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
@@ -35,6 +36,7 @@ public class Board {
         this.gameBoard = createGameBoard(builder);
         this.whitePieces = calculateActivePieces(this.gameBoard, Alliance.WHITE);
         this.blackPieces = calculateActivePieces(this.gameBoard, Alliance.BLACK);
+        this.enPassantPawn = builder.enPassantPawn;
 
         final Collection<Move> whiteStandardLegalMoves = calculateLegalMoves(this.whitePieces);
         final Collection<Move> blackStandardLegalMoves = calculateLegalMoves(this.blackPieces);
@@ -59,15 +61,29 @@ public class Board {
         return builder.toString();
     }
 
-    public Player blackPlayer() { return this.blackPlayer; }
+    public Player blackPlayer() {
+        return this.blackPlayer;
+    }
 
-    public Player whitePlayer() { return this.whitePlayer; }
+    public Player whitePlayer() {
+        return this.whitePlayer;
+    }
 
-    public Player currentPlayer() { return this.currentPlayer; }
+    public Player currentPlayer() {
+        return this.currentPlayer;
+    }
 
-    public Collection<Piece> getBlackPieces() { return this.blackPieces; }
+    public Pawn getEnPassantPawn() {
+        return this.enPassantPawn;
+    }
 
-    public Collection<Piece> getWhitePieces() { return this.whitePieces; }
+    public Collection<Piece> getBlackPieces() {
+        return this.blackPieces;
+    }
+
+    public Collection<Piece> getWhitePieces() {
+        return this.whitePieces;
+    }
 
     private Collection<Move> calculateLegalMoves(Collection<Piece> pieces) {
 
@@ -160,7 +176,9 @@ public class Board {
         Alliance nextMoveMaker;
         Pawn enPassantPawn;
 
-        public Builder() { this.boardConfig = new HashMap<>(); }
+        public Builder() {
+            this.boardConfig = new HashMap<>();
+        }
 
         public Builder setPiece(final Piece piece) {
             this.boardConfig.put(piece.getPiecePosition(), piece);
@@ -176,6 +194,8 @@ public class Board {
             return new Board(this);
         }
 
-        public void setEnPassantPawn(Pawn enPassantPawn) { this.enPassantPawn = enPassantPawn; }
+        public void setEnPassantPawn(Pawn enPassantPawn) {
+            this.enPassantPawn = enPassantPawn;
+        }
     }
 }

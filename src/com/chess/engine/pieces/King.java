@@ -43,7 +43,7 @@ public class King extends Piece {
                     final Piece pieceAtDestination = candidateDestinationTile.getPiece();
                     final Alliance pieceAlliance = pieceAtDestination.pieceAlliance;
                     if (this.pieceAlliance != pieceAlliance) {
-                        legalMoves.add(new AttackMove(board, this,
+                        legalMoves.add(new MajorAttackMove(board, this,
                             candidateDestinationCoordinate, pieceAtDestination));
                     }
                 }
