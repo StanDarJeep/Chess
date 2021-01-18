@@ -3,9 +3,13 @@ package com.chess.gui;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 

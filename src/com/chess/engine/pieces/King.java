@@ -15,14 +15,44 @@ import static com.chess.engine.board.Move.*;
 
 public class King extends Piece {
 
+    /*
+    This class represents the King piece in chess. The King moves diagonally and horizontally across
+    the board, with a maximum range of one tile. Unlike the other pieces, the King may not move into
+    a tile where the opponent pieces directly attack.
+        - CANDIDATE_MOVE_COORDINATES: the coordinates relative to the King's current position where
+                                      it may make moves, following the one-dimensional organization
+                                      of the board tiles.
+     */
+
     private final static int[] CANDIDATE_MOVE_COORDINATES = { -9, -8, -7, -1, 1, 7, 8, 9 };
 
-    public King(final Alliance pieceAlliance, final int piecePosition) {
+    private final boolean isCastled;
+    private final boolean kingSideCastleCapable;
+    private final boolean queenSideCastleCapable;
+
+    public King(final Alliance pieceAlliance, final int piecePosition,
+                final boolean kingSideCastleCapable, final boolean queenSideCastleCapable) {
         super(PieceType.KING, piecePosition, pieceAlliance, true);
+        this.isCastled = false;
+        this.kingSideCastleCapable = kingSideCastleCapable;
+        this.queenSideCastleCapable = queenSideCastleCapable;
     }
 
-    public King(final Alliance pieceAlliance, final int piecePosition, final boolean isFirstMove) {
+    public King(final Alliance pieceAlliance, final int piecePosition, final boolean isFirstMove,
+                final boolean isCastled, final boolean kingSideCastleCapable,
+                final boolean queenSideCastleCapable) {
         super(PieceType.KING, piecePosition, pieceAlliance, isFirstMove);
+        this.isCastled = isCastled;
+        this.kingSideCastleCapable = kingSideCastleCapable;
+        this.queenSideCastleCapable = queenSideCastleCapable;
+    }
+
+    public boolean isKingSideCastleCapable() {
+        return this.kingSideCastleCapable;
+    }
+
+    public boolean isQueenSideCastleCapable() {
+        return this.queenSideCastleCapable;
     }
 
     @Override
@@ -54,7 +84,9 @@ public class King extends Piece {
 
     @Override
     public King movePiece(final Move move) {
-        return new King(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate());
+        return new King(move.getMovedPiece().getPieceAlliance(), move.getDestinationCoordinate(),
+            false, move.isCastlingMove(), false,
+            false);
     }
 
     @Override

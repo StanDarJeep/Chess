@@ -5,15 +5,19 @@ import com.chess.engine.pieces.Piece;
 import com.google.common.primitives.Ints;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import static com.chess.gui.Table.*;
@@ -57,25 +61,13 @@ public class TakenPiecesPanel extends JPanel {
                 }
             }
         }
-        Collections.sort(whiteTakenPieces, new Comparator<Piece>() {
-
-            @Override
-            public int compare(Piece o1, Piece o2) {
-                return Ints.compare(o1.getPieceValue(), o2.getPieceValue());
-            }
-        });
-        Collections.sort(blackTakenPieces, new Comparator<Piece>() {
-
-            @Override
-            public int compare(Piece o1, Piece o2) {
-                return Ints.compare(o1.getPieceValue(), o2.getPieceValue());
-            }
-        });
+        whiteTakenPieces.sort((o1, o2) -> Ints.compare(o1.getPieceValue(), o2.getPieceValue()));
+        blackTakenPieces.sort((o1, o2) -> Ints.compare(o1.getPieceValue(), o2.getPieceValue()));
         for (final Piece takenPiece : whiteTakenPieces) {
             try {
                 final BufferedImage image = ImageIO.read(new File("art/pieces/plain/" +
-                    takenPiece.getPieceAlliance().toString().substring(0, 1) + "" +
-                    takenPiece.toString() + ".gif"));
+                    takenPiece.getPieceAlliance().toString().charAt(0) + "" + takenPiece.toString()
+                    + ".gif"));
                 final ImageIcon icon = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().
                     getScaledInstance(icon.getIconWidth() - 15,
@@ -88,8 +80,8 @@ public class TakenPiecesPanel extends JPanel {
         for (final Piece takenPiece : blackTakenPieces) {
             try {
                 final BufferedImage image = ImageIO.read(new File("art/pieces/plain/" +
-                    takenPiece.getPieceAlliance().toString().substring(0, 1) + "" +
-                    takenPiece.toString() + ".gif"));
+                    takenPiece.getPieceAlliance().toString().charAt(0) + "" + takenPiece.toString()
+                    + ".gif"));
                 final ImageIcon icon = new ImageIcon(image);
                 final JLabel imageLabel = new JLabel(new ImageIcon(icon.getImage().
                     getScaledInstance(icon.getIconWidth() - 15,

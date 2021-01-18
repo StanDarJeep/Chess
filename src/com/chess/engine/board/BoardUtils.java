@@ -2,13 +2,27 @@ package com.chess.engine.board;
 
 import com.google.common.collect.ImmutableMap;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class BoardUtils {
+
+    /*
+    A utility class for the board. Includes boolean arrays for the positions of the columns/ranks,
+    as well as the algebraic representation of coordinate tiles.
+        - NUM_COLUMNS: the initialized array of booleans which return true on the array index where
+                       a tile coordinate corresponding to that array index, would exist in that
+                       specified column.
+        - NUM_ROWS: the initialized array of booleans which return true on the array index where
+                    a tile coordinate corresponding to that array index, would exist in that
+                    specified row.
+        - ALGEBRAIC_NOTATION: the initialized array of strings that corresponds to the algebraic
+                              representation of a given tile coordinate.
+        - POSITION_TO_COORDINATE: the initialized mapping of an algebraic tile representation to its
+                                  tile coordinate.
+        - NUM_TILES: the standard chess board has 64 tiles.
+        - NUM_TILES_PER_ROW: the standard chess board has 8 tiles on each row.
+     */
 
     public static final boolean[] FIRST_COLUMN = initColumn(0);
     public static final boolean[] SECOND_COLUMN = initColumn(1);
