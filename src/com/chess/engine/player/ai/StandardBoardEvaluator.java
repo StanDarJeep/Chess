@@ -6,6 +6,15 @@ import com.chess.engine.player.Player;
 
 public final class StandardBoardEvaluator implements BoardEvaluator {
 
+    /*
+    Abstraction Function:
+    This class represents an evaluator for a given Board state. It assesses the material value,
+    mobility, checking, and castling bonuses that a Player may possess. This class will be used in
+    artificially intelligent algorithms, such as MiniMax.
+        - BONUS fields: these arbitrary values are multipliers for the potential advantage that a
+                        certain criteria may create.
+     */
+
     private static final int CHECK_BONUS = 50;
     private static final int CHECK_MATE_BONUS = 10000;
     private static final int DEPTH_BONUS = 100;
@@ -17,6 +26,15 @@ public final class StandardBoardEvaluator implements BoardEvaluator {
             scorePlayer(board, board.blackPlayer(), depth);
     }
 
+    /**
+     * Given a certain Player, quantify how strong their current game state is.
+     *
+     * @param board the Board being evaluated
+     * @param player the Player whose advantage will be evaluated
+     * @param depth the depth at which the evaluation is made
+     * @return the sum of multiple different criteria that combine to form to strength of the
+     * Player's game state
+     */
     private int scorePlayer(final Board board, final Player player, final int depth) {
         return pieceValue(player) + mobility(player) + check(player) + checkmate(player, depth) +
             castled(player);

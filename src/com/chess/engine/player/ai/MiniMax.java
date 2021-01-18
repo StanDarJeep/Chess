@@ -6,9 +6,25 @@ import com.chess.engine.player.MoveTransition;
 
 public class MiniMax implements MoveStrategy {
 
+    /*
+    Abstraction Function:
+    This class represents the artificial intelligence that is used by the computer during a selected
+    computer-played game. It uses a MiniMax algorithm, seeking to minimize the potential losses for
+    a possible maximum loss scenario.
+        - boardEvaluator: the evaluation algorithm that the artificial intelligence will use to
+                          evaluate a specific board state.
+        - searchDepth: the depth at which the algorithm will search for Moves.
+     */
+
     private final BoardEvaluator boardEvaluator;
     private final int searchDepth;
 
+    /**
+     * Constructor for the MiniMax class. The larger the depth, the more resource and time consuming
+     * that the algorithm becomes.
+     *
+     * @param searchDepth the depth at which the algorithm will search for moves.
+     */
     public MiniMax(final int searchDepth) {
         this.boardEvaluator = new StandardBoardEvaluator();
         this.searchDepth = searchDepth;
@@ -21,13 +37,11 @@ public class MiniMax implements MoveStrategy {
 
     @Override
     public Move execute(Board board) {
-        final long startTime = System.currentTimeMillis();
         Move bestMove = null;
         int highestSeenValue = Integer.MIN_VALUE;
         int lowestSeenValue = Integer.MAX_VALUE;
         int currentValue;
         System.out.println(board.currentPlayer() + " THINKING WITH DEPTH = " + this.searchDepth);
-        int numMoves = board.currentPlayer().getLegalMoves().size();
         for (final Move move : board.currentPlayer().getLegalMoves()) {
             final MoveTransition moveTransition = board.currentPlayer().makeMove(move);
             if (moveTransition.getMoveStatus().isDone()) {
@@ -45,10 +59,18 @@ public class MiniMax implements MoveStrategy {
                 }
             }
         }
-        final long executionTime = System.currentTimeMillis() - startTime;
         return bestMove;
     }
 
+    /**
+     * A corecursive function that will calculate the minimum gain for a certain ply. Intrinsically
+     * calls the corecursive max function in order to calculate the maximum gain for the layer one
+     * ply up.
+     *
+     * @param board the current board state
+     * @param depth the depth at which this function was called
+     * @return the minimum gain at this particular depth
+     */
     public int min(final Board board, final int depth) {
         if (depth == 0 || isEndGameScenario(board)) {
             return this.boardEvaluator.evaluate(board, depth);
@@ -66,10 +88,26 @@ public class MiniMax implements MoveStrategy {
         return lowestSeenValue;
     }
 
+    /**
+     * Helper method for the min and max functions. Determines whether or not the game has ended for
+     * a given Board.
+     *
+     * @param board the Board to be assessed
+     * @return true if the game has ended in checkmate or stalemate, and false otherwise
+     */
     private static boolean isEndGameScenario(final Board board) {
         return board.currentPlayer().isInCheckMate() || board.currentPlayer().isInStaleMate();
     }
 
+    /**
+     * A corecursive function that will calculate the maximum gain for a certain ply. Intrinsically
+     * calls the corecursive min function in order to calculate the minimum gain for the layer one
+     * ply up.
+     *
+     * @param board the current board state
+     * @param depth the depth at which this function was called
+     * @return the maximum gain at this particular depth
+     */
     public int max(final Board board, final int depth) {
         if (depth == 0 || isEndGameScenario(board)) {
             return this.boardEvaluator.evaluate(board, depth);

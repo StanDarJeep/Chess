@@ -7,6 +7,12 @@ import com.chess.engine.player.WhitePlayer;
 
 public enum Alliance {
 
+    /*
+    Abstraction Function:
+    This class represents both the white and black sides of a chess game. Importantly, the Alliance
+    of a Pawn will determine its movement vector, as well as its possible promotion squares.
+     */
+
     WHITE {
 
         @Override
