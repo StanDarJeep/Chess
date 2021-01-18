@@ -8,9 +8,9 @@ public class MiniMax implements MoveStrategy {
 
     /*
     Abstraction Function:
-    This class represents the artificial intelligence that is used by the computer during a selected
-    computer-played game. It uses a MiniMax algorithm, seeking to minimize the potential losses for
-    a possible maximum loss scenario.
+    This class represents the MoveStrategy that is used by the artificial intelligence during a
+    selected computer-played game. It uses a MiniMax algorithm, seeking to minimize the potential
+    losses for a possible maximum loss scenario.
         - boardEvaluator: the evaluation algorithm that the artificial intelligence will use to
                           evaluate a specific board state.
         - searchDepth: the depth at which the algorithm will search for Moves.

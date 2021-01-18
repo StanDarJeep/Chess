@@ -17,10 +17,18 @@ import static com.chess.gui.Table.*;
 
 public class GameHistoryPanel extends JPanel {
 
+    /*
+    This class is the JPanel implementation of the right side panel, which displays the MoveHistory
+    of the current game in progress, in algebraic notation. Contains a scroll pane.
+     */
+
     private final DataModel model;
     private final JScrollPane scrollPane;
     private static final Dimension HISTORY_PANEL_DIMENSION = new Dimension(100, 40);
 
+    /**
+     * Constructor for the default GameHistoryPanel
+     */
     GameHistoryPanel() {
         this.setLayout(new BorderLayout());
         this.model = new DataModel();
@@ -33,6 +41,13 @@ public class GameHistoryPanel extends JPanel {
         this.setVisible(true);
     }
 
+    /**
+     * This method updates the panel in order to show any changes made to the MoveLog, such as new
+     * moves being played.
+     *
+     * @param board the board of the chess game being played
+     * @param moveHistory the MoveLog of the game's history
+     */
     void redo(final Board board, final MoveLog moveHistory) {
         int currentRow = 0;
         this.model.clear();
@@ -60,6 +75,13 @@ public class GameHistoryPanel extends JPanel {
         vertical.setValue(vertical.getMaximum());
     }
 
+    /**
+     * This helper method returns a String of "#" or "+", depending or not the game state has the
+     * current Player in check or checkmate. Called in redo.
+     *
+     * @param board the board of the chess game being played
+     * @return "#", "+" or the empty String depending on the game state
+     */
     private String calculateCheckAndCheckMateHash(final Board board) {
         if (board.currentPlayer().isInCheckMate()) {
             return "#";
@@ -71,9 +93,20 @@ public class GameHistoryPanel extends JPanel {
 
     private static class DataModel extends DefaultTableModel {
 
+        /*
+        Abstraction Function:
+        This class represents a column of Rows organized underneath two headers: "White" and
+        "Black". The Rows will hold the data of each Move that was made in the current game.
+            - values: the list of chess Moves made.
+
+            - NAMES: the headers under which the Moves are organized.
+         */
         private final List<Row> values;
         private static final String[] NAMES = { "White", "Black" };
 
+        /**
+         * Constructor for a new DataModel.
+         */
         DataModel() { this.values = new ArrayList<>(); }
 
         public void clear() {
@@ -136,6 +169,12 @@ public class GameHistoryPanel extends JPanel {
     }
 
     private static class Row {
+
+        /*
+        Abstraction Function:
+        This class represents a pair of two chess Moves, each made by either Player on the Board.
+        Used for organizing data in the DataModel.
+         */
 
         private String whiteMove;
         private String blackMove;

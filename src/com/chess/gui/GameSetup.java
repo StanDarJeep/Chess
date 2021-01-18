@@ -1,9 +1,6 @@
 package com.chess.gui;
 
-import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -11,9 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
 import com.chess.engine.Alliance;
 import com.chess.engine.player.Player;
@@ -21,13 +15,27 @@ import com.chess.gui.Table.PlayerType;
 
 class GameSetup extends JDialog {
 
+    /*
+    This class is the JDialog implementation of a dialog box that opens when the Setup Game option
+    is clicked from the main GUI. It prompts the user to setup a new game, with either human or AI
+    players.
+        - whitePlayerType: the PlayerType of the Player in control of the white Pieces.
+        - blackPlayerType: the PlayerType of the Player in control of the black Pieces.
+     */
+
     private PlayerType whitePlayerType;
     private PlayerType blackPlayerType;
-    private JSpinner searchDepthSpinner;
 
     private static final String HUMAN_TEXT = "Human";
     private static final String COMPUTER_TEXT = "Computer";
 
+    /**
+     * Constructor for a new JDialog box, given the frame from which it is called and a specified
+     * modality.
+     *
+     * @param frame the frame from which the GameSetup dialog box is called
+     * @param modal the modality of the dialog box
+     */
     GameSetup(final JFrame frame, final boolean modal) {
         super(frame, modal);
         final JPanel myPanel = new JPanel(new GridLayout(0, 1));
@@ -54,25 +62,20 @@ class GameSetup extends JDialog {
         myPanel.add(blackHumanButton);
         myPanel.add(blackComputerButton);
 
-        myPanel.add(new JLabel("Search"));
-        this.searchDepthSpinner = addLabeledSpinner(myPanel, "Search Depth", new SpinnerNumberModel(6, 0, Integer.MAX_VALUE, 1));
-
         final JButton cancelButton = new JButton("Cancel");
         final JButton okButton = new JButton("OK");
 
-        okButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                whitePlayerType = whiteComputerButton.isSelected() ? PlayerType.COMPUTER : PlayerType.HUMAN;
-                blackPlayerType = blackComputerButton.isSelected() ? PlayerType.COMPUTER : PlayerType.HUMAN;
-                GameSetup.this.setVisible(false);
-            }
+        okButton.addActionListener(e -> {
+            whitePlayerType = whiteComputerButton.isSelected() ? PlayerType.COMPUTER :
+                PlayerType.HUMAN;
+            blackPlayerType = blackComputerButton.isSelected() ? PlayerType.COMPUTER :
+                PlayerType.HUMAN;
+            GameSetup.this.setVisible(false);
         });
 
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Cancel");
-                GameSetup.this.setVisible(false);
-            }
+        cancelButton.addActionListener(e -> {
+            System.out.println("Cancel");
+            GameSetup.this.setVisible(false);
         });
 
         myPanel.add(cancelButton);
@@ -83,13 +86,22 @@ class GameSetup extends JDialog {
         setVisible(false);
     }
 
+    /**
+     * This method sets the dialog screen to be visible to the user.
+     */
     void promptUser() {
         setVisible(true);
         repaint();
     }
 
+    /**
+     * Determines whether or not the specified Player is controlled by the AI.
+     *
+     * @param player the Player being examined
+     * @return true if the Player is an AI, and false otherwise
+     */
     boolean isAIPlayer(final Player player) {
-        if(player.getAlliance() == Alliance.WHITE) {
+        if (player.getAlliance() == Alliance.WHITE) {
             return getWhitePlayerType() == PlayerType.COMPUTER;
         }
         return getBlackPlayerType() == PlayerType.COMPUTER;
@@ -101,18 +113,5 @@ class GameSetup extends JDialog {
 
     PlayerType getBlackPlayerType() {
         return this.blackPlayerType;
-    }
-
-    private static JSpinner addLabeledSpinner(Container c, String label, SpinnerModel model) {
-        final JLabel l = new JLabel(label);
-        c.add(l);
-        final JSpinner spinner = new JSpinner(model);
-        l.setLabelFor(spinner);
-        c.add(spinner);
-        return spinner;
-    }
-
-    int getSearchDepth() {
-        return (Integer)this.searchDepthSpinner.getValue();
     }
 }

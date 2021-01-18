@@ -13,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestBoard {
 
+    /*
+    Testing suite for the chess engine.
+     */
+
     @Test
     public void initialBoard() {
         final Board board = Board.createStandardBoard();

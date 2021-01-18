@@ -24,6 +24,14 @@ import static com.chess.gui.Table.*;
 
 public class TakenPiecesPanel extends JPanel {
 
+    /*
+    This class is the JPanel implementation of the left side panel, which displays images for the
+    chess Pieces that are inactive for either side (i.e. those that have been captured by the
+    opposing Player).
+        - northPanel: the upper JPanel that displays the inactive black Pieces.
+        - southPanel: the lower JPanel that displays the inactive white Pieces.
+     */
+
     private final JPanel northPanel;
     private final JPanel southPanel;
 
@@ -31,6 +39,9 @@ public class TakenPiecesPanel extends JPanel {
     private static final Dimension TAKEN_PIECES_DIMENSION = new Dimension(40, 80);
     private static final EtchedBorder PANEL_BORDER = new EtchedBorder(EtchedBorder.RAISED);
 
+    /**
+     * Constructor for the default TakenPiecesPanel
+     */
     public TakenPiecesPanel() {
         super(new BorderLayout());
         this.setBackground(PANEL_COLOR);
@@ -44,6 +55,12 @@ public class TakenPiecesPanel extends JPanel {
         setPreferredSize(TAKEN_PIECES_DIMENSION);
     }
 
+    /**
+     * This method updates the panel in order to show any captures that have been made, based on the
+     * updated MoveLog.
+     *
+     * @param moveLog the MoveLog of the game's history
+     */
     public void redo(final MoveLog moveLog) {
         this.southPanel.removeAll();
         this.northPanel.removeAll();
