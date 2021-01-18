@@ -155,6 +155,6 @@ public class Pawn extends Piece {
      * @return the piece to which the Pawn promotes
      */
     public Piece getPromotionPiece() {
-        return new Queen(this.pieceAlliance, this.piecePosition);
+        return new Queen(this.pieceAlliance, this.piecePosition, false);
     }
 }
