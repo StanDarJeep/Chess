@@ -11,7 +11,7 @@ public abstract class Piece {
     /*
     Abstraction Function:
     This class represents a piece in chess. All of the different types of pieces are subclassed from
-    this class.
+    this class. Each piece calculates their own possible moves given the current board state.
         - pieceType: the Piece's type.
         - piecePosition: the tile coordinate on which the Piece is located.
         - pieceAlliance: the side to which the Piece belongs.
@@ -31,8 +31,8 @@ public abstract class Piece {
      *
      * @param pieceType the type of Piece being created
      * @param piecePosition the tile coordinate on which the Piece is located
-     * @param pieceAlliance
-     * @param isFirstMove
+     * @param pieceAlliance the side to which the Piece belongs
+     * @param isFirstMove whether or not the Piece has made a move yet, in the game
      */
     Piece(final PieceType pieceType, final int piecePosition, final Alliance pieceAlliance,
           final boolean isFirstMove) {
@@ -43,6 +43,11 @@ public abstract class Piece {
         this.cachedHashCode = computeHashCode();
     }
 
+    /**
+     * Computes the hashCode for this Piece
+     *
+     * @return the unique hashCode
+     */
     private int computeHashCode() {
         int result = pieceType.hashCode();
         result = 31 * result + pieceAlliance.hashCode();
@@ -91,11 +96,32 @@ public abstract class Piece {
         return this.pieceType.getPieceValue();
     }
 
+    /**
+     * This abstract method will return all the possible legal moves for a specific Piece, given the
+     * board state.
+     *
+     * @param board the board on which the Piece exists
+     * @return a collection of all the possible legal moves
+     */
     public abstract Collection<Move> calculateLegalMoves(final Board board);
 
+    /**
+     * This abstract method will create a new Piece with updated data coming from the Move being
+     * passed as a parameter.
+     *
+     * @param move the Move involving the Piece which will occur
+     * @return the new Piece after the Move occurs
+     */
     public abstract Piece movePiece(Move move);
 
     public enum PieceType {
+
+        /*
+        Abstraction Function:
+        This enum is for keeping track of the different piece types, whether or not they are Rooks
+        or Kings (for castling purposes), the piece value of the type to be used in the
+        BoardEvaluator, and their string representation.
+         */
 
         PAWN("P", 100) {
             @Override
@@ -164,8 +190,8 @@ public abstract class Piece {
             }
         };
 
-        private String pieceName;
-        private int pieceValue;
+        private final String pieceName;
+        private final int pieceValue;
 
         PieceType(final String pieceName, final int pieceValue) {
             this.pieceName = pieceName;

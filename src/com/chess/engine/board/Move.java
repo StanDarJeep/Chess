@@ -35,7 +35,8 @@ public abstract class Move {
 
     /**
      * Default constructor for a move given the board, the moved piece, and its destination
-     * coordinate.
+     * coordinate. This constructor is private and is to only be called from the MoveFactory factory
+     * class.
      *
      * @param board the board on which the move is played
      * @param movedPiece the piece that is being moved
@@ -49,7 +50,8 @@ public abstract class Move {
     }
 
     /**
-     * Special constructor that creates an empty move. Used for instantiating the null move.
+     * Special constructor that creates an empty move. Used for instantiating the null move. This
+     * constructor is private and is to only be called from the MoveFactory factory class.
      *
      * @param board some board
      * @param destinationCoordinate some tile coordinate
@@ -102,10 +104,6 @@ public abstract class Move {
     }
 
     public boolean isAttack() {
-        return false;
-    }
-
-    public boolean isCastlingMove() {
         return false;
     }
 
@@ -503,11 +501,6 @@ public abstract class Move {
         }
 
         @Override
-        public boolean isCastlingMove() {
-            return true;
-        }
-
-        @Override
         public Board execute() {
             final Builder builder = new Builder();
             for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
@@ -624,7 +617,6 @@ public abstract class Move {
     public static class MoveFactory {
 
         /*
-        Abstraction Function:
         This is a factory class that will create a Move without needing to specify its specific
         subclassing.
          */

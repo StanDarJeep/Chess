@@ -14,12 +14,29 @@ import java.util.List;
 
 public abstract class Player {
 
+    /*
+    Abstraction Function:
+    The Player class represents a player that is playing the chess game. The Player is responsible
+    for the creation of MoveTransitions using the makeMove method, as well as determining possible
+    castle moves. The Player may be subject to checks, checkmates, and stalemates depending on the
+    configuration of the board, as well as the position of their King.
+        - board: the Board on which the Players play.
+        - playerKing: the King
+     */
+
     protected final Board board;
     protected final King playerKing;
     protected final Collection<Move> legalMoves;
     private final boolean isInCheck;
 
-    Player(final Board board, final Collection<Move> legalMoves,
+    /**
+     * Constructor for the Player superclass.
+     *
+     * @param board the board on which the players play
+     * @param legalMoves the set of legal moves for the player
+     * @param opponentMoves the set of legal moves for opponent
+     */
+    protected Player(final Board board, final Collection<Move> legalMoves,
            final Collection<Move> opponentMoves) {
         this.board = board;
         this.playerKing = establishKing();

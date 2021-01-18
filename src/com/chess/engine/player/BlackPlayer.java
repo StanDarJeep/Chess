@@ -16,6 +16,18 @@ import static com.chess.engine.board.Move.*;
 
 public class BlackPlayer extends Player {
 
+    /*
+    Abstraction Function:
+    This class represents the black player playing in the chess game.
+     */
+
+    /**
+     * Constructor for a BlackPlayer that simply calls the superclass constructor
+     *
+     * @param board the board on which the players play
+     * @param whiteStandardLegalMoves the set of legal moves for white
+     * @param blackStandardLegalMoves the set of legal moves for black
+     */
     public BlackPlayer(final Board board, final Collection<Move> whiteStandardLegalMoves,
                        final Collection<Move> blackStandardLegalMoves) {
         super(board, blackStandardLegalMoves, whiteStandardLegalMoves);
