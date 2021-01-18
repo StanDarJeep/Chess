@@ -10,11 +10,12 @@ public abstract class Move {
 
     /*
     Abstraction Function:
-    The class represents a move being made on the chess board, by any player.
-        - board: the board on which the move is made.
-        - movedPiece: the piece that is being moved.
+    The class represents a move being made on the chess board, by any player. The execution of the
+    move will always create a new Board.
+        - board: the Board on which the move is made.
+        - movedPiece: the Piece that is being moved.
         - destinationCoordinate: the tile coordinate on which the movedPiece will end up.
-        - isFirstMove: whether or not this is the piece's first move. Used for calculating pawn
+        - isFirstMove: whether or not this is the Piece's first move. Used for calculating pawn
                        jumps and castles.
 
         - NULL_MOVE: the singleton that is created when the factory class for Move creates an

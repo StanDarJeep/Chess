@@ -14,20 +14,38 @@ import static com.chess.engine.board.Move.*;
 
 public class Pawn extends Piece {
 
-    private final static int[] CANDIDATE_MOVE_COORDINATE = { 8, 16, 7, 9 };
+    /*
+    Abstraction Function:
+    This class represents the Pawn piece in chess.
+    - The Pawn moves forward one tile onto the board with its normal move, and may only attack
+      diagonally forward.
+    - The first move of a Pawn, while the Pawn is still on its starting rank, may be a PawnJump,
+      moving forward two tiles.
+    - The Pawn undergoes a PawnPromotion when it reaches the last rank, becoming a Queen (other
+      pieces promotion is not supported).
+    - The Pawn may capture an opposing Pawn that is adjacent to itself, so long as that opposing
+      Pawn made a PawnJump last turn, in an PawnEnPassantAttackMove.
+        - CANDIDATE_MOVE_COORDINATES: the coordinates relative to the Pawn's current position where
+                                      it may make moves, following the one-dimensional organization
+                                      of the board tiles.
+     */
 
+    private final static int[] CANDIDATE_MOVE_COORDINATES = { 8, 16, 7, 9 };
+
+    /**
+     * Constructor for a Pawn that simply calls the superclass constructor.
+     *
+     * @param pieceAlliance the side on which the Pawn is
+     * @param piecePosition the tile coordinate where the Pawn currently is
+     */
     public Pawn(final Alliance pieceAlliance, final int piecePosition) {
         super(PieceType.PAWN, piecePosition, pieceAlliance, true);
-    }
-
-    public Pawn(final Alliance pieceAlliance, final int piecePosition, final boolean isFirstMove) {
-        super(PieceType.PAWN, piecePosition, pieceAlliance, isFirstMove);
     }
 
     @Override
     public Collection<Move> calculateLegalMoves(final Board board) {
         final List<Move> legalMoves = new ArrayList<>();
-        for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATE) {
+        for (final int currentCandidateOffset : CANDIDATE_MOVE_COORDINATES) {
             final int candidateDestinationCoordinate = this.piecePosition +
                 (this.pieceAlliance.getDirection() * currentCandidateOffset);
             if (!BoardUtils.isValidTileCoordinate(candidateDestinationCoordinate)) {
@@ -130,7 +148,13 @@ public class Pawn extends Piece {
         return PieceType.PAWN.toString();
     }
 
+    /**
+     * This method returns the piece to which the Pawn will be promoted. Currently only supports the
+     * specific promotion to a Queen.
+     *
+     * @return the piece to which the Pawn promotes
+     */
     public Piece getPromotionPiece() {
-        return new Queen(this.pieceAlliance, this.piecePosition, false);
+        return new Queen(this.pieceAlliance, this.piecePosition);
     }
 }

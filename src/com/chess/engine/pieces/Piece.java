@@ -8,12 +8,32 @@ import java.util.Collection;
 
 public abstract class Piece {
 
+    /*
+    Abstraction Function:
+    This class represents a piece in chess. All of the different types of pieces are subclassed from
+    this class.
+        - pieceType: the Piece's type.
+        - piecePosition: the tile coordinate on which the Piece is located.
+        - pieceAlliance: the side to which the Piece belongs.
+        - isFirstMove: whether or not the Piece has made a move yet, in the game.
+        - cachedHashCode: the hashCode of the Piece, cached in order to improve performance, since
+                          the execution of each Move requires a new Board to be built.
+     */
+
     protected final PieceType pieceType;
     protected final int piecePosition;
     protected final Alliance pieceAlliance;
     protected final boolean isFirstMove;
     private final int cachedHashCode;
 
+    /**
+     * Constructor for the Piece superclass.
+     *
+     * @param pieceType the type of Piece being created
+     * @param piecePosition the tile coordinate on which the Piece is located
+     * @param pieceAlliance
+     * @param isFirstMove
+     */
     Piece(final PieceType pieceType, final int piecePosition, final Alliance pieceAlliance,
           final boolean isFirstMove) {
         this.pieceType = pieceType;

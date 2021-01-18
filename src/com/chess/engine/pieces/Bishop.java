@@ -29,7 +29,7 @@ public class Bishop extends Piece {
      * Constructor for a bishop that simply calls the superclass constructor.
      *
      * @param pieceAlliance the side on which the Bishop is
-     * @param piecePosition the position where the Bishop currently is
+     * @param piecePosition the tile coordinate where the Bishop currently is
      */
     public Bishop(final Alliance pieceAlliance, final int piecePosition) {
         super(PieceType.BISHOP, piecePosition, pieceAlliance, true);
@@ -78,7 +78,7 @@ public class Bishop extends Piece {
     public String toString() { return PieceType.BISHOP.toString(); }
 
     /**
-     * The algorithm in calculateLegalMoves does not hold true if the bishop is located on the first
+     * The algorithm in calculateLegalMoves does not hold true if the Bishop is located on the first
      * column. This method calculates whether or not to exclude a move possibility from the possible
      * moves.
      *
